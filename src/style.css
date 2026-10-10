@@ -88,9 +88,22 @@ header {
   place-items: center;
   margin-right: 8px;
 }
-.workspace-label {
-  color: var(--subtle);
+.github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--muted);
   font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+}
+.github-link:hover {
+  background: var(--field);
+  color: var(--foreground);
 }
 main {
   max-width: 1328px;
@@ -814,9 +827,6 @@ dd {
   }
   .brand {
     font-size: 18px;
-  }
-  .workspace-label {
-    display: none;
   }
   main {
     padding: 40px 16px 24px;

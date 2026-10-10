@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   ArrowUpRight,
   ChevronRight,
+  Github,
   Layers,
   Leaf,
   LocateFixed,
@@ -112,7 +113,16 @@ export default function App() {
           Forest<span className="brand-light">Monitor</span>
         </a>
         <div className="header-right">
-          <span className="workspace-label">FOREST CHANGE EXPLORER</span>
+          <a
+            className="github-link"
+            href="https://github.com/sr5434/hackphs-2026/tree/main"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View our repository on GitHub (opens in a new tab)"
+          >
+            <Github size={16} aria-hidden="true" />
+            GitHub
+          </a>
         </div>
       </header>
       <main>
