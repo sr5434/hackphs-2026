@@ -127,7 +127,7 @@ export default function PatchComparison({ feature, imagery, onClose }) {
         <div className="image-comparison-heading">
           <div>
             <h2 id="image-comparison-title">
-              Patch {String(feature.properties.patch_number).padStart(2, "0")} ·
+              Patch {String(feature.properties.patch_number).padStart(2, "0")} |
               Before & after
             </h2>
             <p>Pan or zoom either image to explore the same location.</p>
@@ -172,8 +172,8 @@ export default function PatchComparison({ feature, imagery, onClose }) {
         </div>
         <p className="image-caption">
           <span />
-          Orange outlines the detected patch. Sentinel-2 · 10 m monthly
-          composites. Gray areas have no valid imagery.
+          Orange outlines the detected patch.{/* Orange outlines the detected patch. Sentinel-2 | 10 m monthly
+          composites. Gray areas have no valid imagery. */}
         </p>
       </section>
     </div>

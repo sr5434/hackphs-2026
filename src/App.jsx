@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  ArrowUpRight,
   ChevronRight,
   Github,
   Layers,
@@ -128,14 +127,14 @@ export default function App() {
       <main>
         <div className="page-heading">
           <div>
-            <h1>ForestLens</h1>
-            <p>Visualize deforestation in the Brazilian Amazon</p>
+            <h1>Amazon forest loss</h1>
+            <p>Compare detected loss patches and monthly satellite imagery.</p>
           </div>
           <div className="location">
             <MapPin size={17} />
             <div>
               <strong>Porto Velho, Brazil</strong>
-              {/* <span>Rondônia · Brazilian Amazon</span> */}
+              <span>Rondônia | Brazilian Amazon</span>
             </div>
           </div>
         </div>
@@ -179,20 +178,14 @@ export default function App() {
         )}
         <section className="stats" aria-label="Dataset summary">
           <div className="stat">
-            <span className="stat-icon">
-              <Trees size={21} />
-            </span>
             <div>
               <span className="stat-label">Detected tree loss</span>
               <strong>
-                {loading ? "—" : format(total)} <small>ha</small>
+                {loading ? "—" : format(total)} <small>hectares</small>
               </strong>
             </div>
           </div>
           <div className="stat">
-            <span className="stat-icon orange">
-              <Layers size={21} />
-            </span>
             <div>
               <span className="stat-label">Loss patches</span>
               <strong>
@@ -254,9 +247,6 @@ export default function App() {
                     className={`patch-row ${selected?.id === f.id ? "active" : ""}`}
                     onClick={() => setSelected(f)}
                   >
-                    <span className="patch-mark">
-                      <Layers size={15} />
-                    </span>
                     <span className="patch-name">
                       <strong>
                         Patch{" "}
@@ -306,11 +296,11 @@ export default function App() {
               fitSignal={fitSignal}
             />
             <div className="map-top">
-              <span className="map-chip">
-                <span className="live-dot" /> Porto Velho{" "}
+              {/* <span className="map-chip">
+                Porto Velho{" "}
                 <span className="chip-divider" />{" "}
                 {satellite ? "Satellite" : "Street map"}
-              </span>
+              </span> */}
               <button
                 className="icon-button"
                 title="Fit all visible patches"
@@ -340,7 +330,7 @@ export default function App() {
                 aria-pressed={showPatches}
                 onClick={() => setShowPatches((x) => !x)}
               >
-                <span /> Candidate loss {showPatches ? "on" : "off"}
+                <span /> {showPatches ? "Show patches" : "Hide patches"}
               </button>
             </div>
             {selected && (
@@ -357,7 +347,6 @@ export default function App() {
                 <h2>
                   Patch{" "}
                   {String(selected.properties.patch_number).padStart(2, "0")}
-                  <ArrowUpRight size={20} />
                 </h2>
                 <div className="detail-area">
                   {format(selected.properties.area_hectares)}{" "}

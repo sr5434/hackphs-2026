@@ -1,20 +1,18 @@
-@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap");
-
 :root {
-  --background: #fafafa;
+  --background: #f5f6f2;
   --surface: #ffffff;
-  --field: #f9fafb;
-  --foreground: #171717;
-  --muted: #52525b;
-  --subtle: #71717a;
-  --border: #e4e4e7;
-  --blue: #2563eb;
-  --blue-soft: #eff6ff;
-  --blue-text: #1d4ed8;
+  --field: #f0f2ed;
+  --foreground: #1b2923;
+  --muted: #48584f;
+  --subtle: #626e65;
+  --border: #d4dad2;
+  --accent: #24543f;
+  --accent-soft: #e6eee5;
+  --accent-text: #244e39;
   --orange-soft: #fff7ed;
   --orange-text: #9a3412;
   color-scheme: light;
-  font-family: Geist, Arial, Helvetica, sans-serif;
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
   color: var(--foreground);
   background: var(--background);
   font-synthesis: none;
@@ -43,7 +41,7 @@ button:focus-visible,
 a:focus-visible,
 input:focus-visible,
 select:focus-visible {
-  outline: 3px solid #93c5fd;
+  outline: 3px solid #6b917c;
   outline-offset: 3px;
 }
 h1,
@@ -59,7 +57,7 @@ h2 {
 header {
   height: 72px;
   border-bottom: 1px solid var(--border);
-  background: var(--surface);
+  background: #1e3e30;
   padding: 0 max(24px, calc((100% - 1280px) / 2));
   display: flex;
   justify-content: space-between;
@@ -69,7 +67,7 @@ header {
   display: flex;
   align-items: center;
   gap: 4px;
-  color: var(--foreground);
+  color: #ffffff;
   text-decoration: none;
   font-size: 20px;
   font-weight: 700;
@@ -79,11 +77,11 @@ header {
   font-weight: 600;
 }
 .brand-icon {
-  background: #ecfdf5;
-  color: #16a34a;
+  background: transparent;
+  color: #c3d8bf;
   width: 36px;
   height: 36px;
-  border-radius: 8px;
+  border-radius: 3px;
   display: grid;
   place-items: center;
   margin-right: 8px;
@@ -93,43 +91,47 @@ header {
   align-items: center;
   gap: 8px;
   padding: 8px 12px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--surface);
-  color: var(--muted);
+  border: 1px solid #779181;
+  border-radius: 3px;
+  background: transparent;
+  color: #edf3ed;
   font-size: 12px;
   font-weight: 500;
   text-decoration: none;
 }
 .github-link:hover {
-  background: var(--field);
-  color: var(--foreground);
+  background: #315442;
+  color: #ffffff;
 }
 main {
   max-width: 1328px;
   margin: auto;
-  padding: 64px 24px 40px;
+  padding: 32px 24px 40px;
 }
 .page-heading {
-  text-align: center;
-  margin-bottom: 48px;
+  text-align: left;
+  margin-bottom: 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 24px;
 }
 .page-heading h1 {
-  font-size: 48px;
-  font-weight: 800;
+  font-size: 34px;
+  font-weight: 600;
   letter-spacing: -1.2px;
   line-height: 1.15;
 }
 .page-heading p {
   margin-top: 12px;
-  font-size: 18px;
-  line-height: 28px;
+  font-size: 15px;
+  line-height: 24px;
   color: var(--muted);
 }
 .location {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px;
   margin-top: 18px;
   color: var(--subtle);
@@ -137,7 +139,8 @@ main {
 }
 .location div {
   display: flex;
-  gap: 8px;
+  flex-direction: column;
+  gap: 4px;
 }
 .location strong {
   color: var(--muted);
@@ -165,19 +168,21 @@ select {
   background: var(--field);
   color: var(--foreground);
   padding: 10px;
-  border-radius: 8px;
+  border-radius: 3px;
   font-size: 14px;
 }
 .comparison-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-  gap: 16px;
+  gap: 0;
+  border-block: 1px solid var(--border);
+  background: var(--surface);
 }
 .comparison-card {
-  padding: 20px;
+  padding: 16px;
   text-align: left;
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  border-right: 1px solid var(--border);
+  border-radius: 0;
   background: var(--surface);
   min-width: 0;
   transition:
@@ -185,13 +190,12 @@ select {
     background 0.15s;
 }
 .comparison-card:hover {
-  border-color: #93c5fd;
+  border-color: #6b917c;
   background: var(--field);
 }
 .comparison-card.selected {
-  border-color: var(--blue);
-  background: var(--blue-soft);
-  box-shadow: 0 0 0 1px var(--blue);
+  background: var(--accent-soft);
+  box-shadow: inset 0 -3px var(--accent);
 }
 .comparison-card > span:first-child {
   font-size: 12px;
@@ -200,14 +204,15 @@ select {
   line-height: 20px;
 }
 .comparison-card.selected > span:first-child {
-  color: var(--blue-text);
+  color: var(--accent-text);
 }
 .comparison-card strong {
   display: block;
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 700;
   letter-spacing: -0.6px;
-  margin: 12px 0;
+  margin: 8px 0;
+  font-variant-numeric: tabular-nums;
 }
 .comparison-card small {
   font-weight: 400;
@@ -229,32 +234,16 @@ select {
 }
 .stats {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 24px;
+  grid-template-columns: repeat(2, minmax(0, 240px));
+  gap: 24px;
+  margin-bottom: 20px;
 }
 .stat {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  background: transparent;
   display: flex;
   gap: 16px;
-  padding: 24px;
-  min-height: 128px;
-}
-.stat-icon {
-  display: grid;
-  place-items: center;
-  background: var(--blue-soft);
-  color: var(--blue);
-  height: 40px;
-  width: 40px;
-  border-radius: 8px;
-  flex-shrink: 0;
-}
-.stat-icon.orange {
-  color: var(--orange-text);
-  background: var(--orange-soft);
+  padding: 0 24px 0 0;
+  border-right: 1px solid var(--border);
 }
 .stat > div {
   display: flex;
@@ -269,6 +258,7 @@ select {
   font-size: 30px;
   letter-spacing: -0.6px;
   font-weight: 700;
+  font-variant-numeric: tabular-nums;
 }
 .stat small {
   font-size: 14px;
@@ -293,7 +283,7 @@ select {
 .explorer {
   display: flex;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 3px;
   overflow: hidden;
   height: 620px;
   background: var(--surface);
@@ -313,8 +303,8 @@ select {
 }
 .count-badge {
   font-size: 12px;
-  background: var(--blue-soft);
-  color: var(--blue-text);
+  background: transparent;
+  color: var(--muted);
   padding: 4px 8px;
   border-radius: 4px;
 }
@@ -323,7 +313,7 @@ select {
   display: flex;
   align-items: center;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 3px;
   background: var(--field);
   padding: 10px;
   gap: 8px;
@@ -341,7 +331,7 @@ select {
   color: var(--subtle);
 }
 .search:focus-within {
-  border-color: var(--blue);
+  border-color: var(--accent);
 }
 .filters {
   display: flex;
@@ -391,18 +381,8 @@ select {
   background: var(--field);
 }
 .patch-row.active {
-  background: var(--blue-soft);
-  box-shadow: inset 3px 0 #3b82f6;
-}
-.patch-mark {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  background: var(--orange-soft);
-  color: var(--orange-text);
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
+  background: var(--accent-soft);
+  box-shadow: inset 3px 0 var(--accent);
 }
 .patch-name {
   display: flex;
@@ -452,7 +432,7 @@ select {
 }
 .map-chip {
   background: var(--surface);
-  border-radius: 8px;
+  border-radius: 3px;
   padding: 10px 12px;
   font-size: 12px;
   display: flex;
@@ -460,14 +440,6 @@ select {
   gap: 8px;
   color: var(--muted);
   box-shadow: 0 2px 8px #0002;
-}
-.live-dot {
-  width: 6px;
-  height: 6px;
-  background: #3b82f6;
-  display: inline-block;
-  border-radius: 50%;
-  flex-shrink: 0;
 }
 .chip-divider {
   height: 12px;
@@ -477,7 +449,7 @@ select {
 .icon-button {
   width: 36px;
   height: 36px;
-  border-radius: 8px;
+  border-radius: 3px;
   background: var(--surface);
   color: var(--muted);
   box-shadow: 0 2px 8px #0002;
@@ -495,7 +467,7 @@ select {
 .layer-controls {
   background: var(--surface);
   padding: 4px;
-  border-radius: 8px;
+  border-radius: 3px;
   display: flex;
   box-shadow: 0 2px 8px #0002;
 }
@@ -507,14 +479,14 @@ select {
   color: var(--muted);
 }
 .layer-controls .chosen {
-  background: var(--blue-soft);
-  color: var(--blue-text);
+  background: var(--accent-soft);
+  color: var(--accent-text);
   font-weight: 500;
 }
 .legend {
   background: var(--surface);
   color: var(--muted);
-  border-radius: 8px;
+  border-radius: 3px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -541,7 +513,7 @@ select {
   overflow-y: auto;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 3px;
   padding: 24px;
   box-shadow: 0 8px 24px #0002;
 }
@@ -612,7 +584,7 @@ dd {
 }
 .imagery-note {
   background: var(--field);
-  border-radius: 8px;
+  border-radius: 3px;
   display: flex;
   gap: 8px;
   padding: 12px;
@@ -632,22 +604,22 @@ dd {
   gap: 8px;
   width: 100%;
   padding: 14px 20px;
-  border-radius: 8px;
-  background: linear-gradient(to right, #3b82f6, #2563eb, #1d4ed8);
+  border-radius: 3px;
+  background: var(--accent);
   color: white;
   font-size: 14px;
   font-weight: 500;
-  box-shadow: 0 4px 10px #3b82f633;
+  box-shadow: none;
 }
 .view-comparison:hover {
-  background: linear-gradient(to bottom right, #3b82f6, #2563eb, #1d4ed8);
+  background: #183d2b;
 }
 .error {
   border: 1px solid #fdba74;
   color: var(--orange-text);
   background: var(--orange-soft);
   padding: 12px;
-  border-radius: 8px;
+  border-radius: 3px;
   margin-bottom: 16px;
   font-size: 14px;
   display: flex;
@@ -669,10 +641,10 @@ dd {
   line-height: 20px;
 }
 .empty-state button {
-  background: var(--blue-soft);
+  background: var(--accent-soft);
   padding: 10px 16px;
-  border-radius: 8px;
-  color: var(--blue-text);
+  border-radius: 3px;
+  color: var(--accent-text);
   font-size: 14px;
 }
 .map-error {
@@ -684,7 +656,7 @@ dd {
   background: var(--orange-soft);
   border: 1px solid #fdba74;
   padding: 12px;
-  border-radius: 8px;
+  border-radius: 3px;
   font-size: 12px;
   color: var(--orange-text);
   line-height: 20px;
@@ -707,7 +679,7 @@ dd {
 }
 .image-comparison {
   background: var(--surface);
-  border-radius: 8px;
+  border-radius: 3px;
   width: min(1200px, 100%);
   max-height: 94vh;
   overflow: auto;
@@ -738,7 +710,7 @@ dd {
 .image-pair > div {
   min-width: 0;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 3px;
   overflow: hidden;
 }
 .image-period {
@@ -773,30 +745,9 @@ dd {
 .image-comparison .maplibregl-ctrl-group {
   margin-bottom: 10px;
 }
-@media (prefers-color-scheme: dark) {
-  .brand-icon {
-    background: #052e16;
-    color: #4ade80;
-  }
-  :root {
-    --background: #0a0a0a;
-    --surface: #18181b;
-    --field: #27272a;
-    --foreground: #ededed;
-    --muted: #a1a1aa;
-    --subtle: #a1a1aa;
-    --border: #3f3f46;
-    --blue: #60a5fa;
-    --blue-soft: #172554;
-    --blue-text: #93c5fd;
-    --orange-soft: #431407;
-    --orange-text: #fdba74;
-    color-scheme: dark;
-  }
-}
 @media (max-width: 1100px) {
   .comparison-cards {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .stats {
     grid-template-columns: 1fr 1fr;
@@ -807,6 +758,13 @@ dd {
   }
   .sidebar {
     width: 300px;
+  }
+}
+@media (min-width: 701px) and (max-width: 900px) {
+  .page-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
   }
 }
 @media (max-width: 700px) {
@@ -822,9 +780,12 @@ dd {
   }
   .page-heading {
     margin-bottom: 32px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
   }
   .page-heading h1 {
-    font-size: 36px;
+    font-size: 30px;
   }
   .page-heading p {
     font-size: 16px;
@@ -850,7 +811,7 @@ dd {
   .comparison-cards {
     display: flex;
     overflow-x: auto;
-    padding: 2px 2px 8px;
+    padding: 0;
     scroll-snap-type: x proximity;
   }
   .comparison-card {
