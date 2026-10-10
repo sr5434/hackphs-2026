@@ -2,7 +2,9 @@
 var comparisonYears = [2024, 2025];
 var months = [7, 9]; // July, September
 
-var area = ee.Geometry.Point([-63.9, -8.8]).buffer(5000);
+var detectionRadiusKm = 20; // Previously 5 km; change this to adjust coverage.
+var area = ee.Geometry.Point([-63.9, -8.8])
+  .buffer(detectionRadiusKm * 1000); // Earth Engine buffer distance is in meters.
 var analysisCRS = 'EPSG:32720'; // For this Porto Velho location.
 
 // Keep your current detection thresholds.
@@ -18,7 +20,7 @@ var dynamicWorld = ee.ImageCollection('GOOGLE/DYNAMICWORLD/V1')
 
 var patchCollections = [];
 
-Map.centerObject(area, 12);
+Map.centerObject(area, 10);
 
 // Create a monthly tree-probability composite.
 // The masked fallback lets empty months remain missing data.

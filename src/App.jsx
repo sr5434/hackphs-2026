@@ -106,11 +106,11 @@ export default function App() {
   return (
     <div className="app">
       <header>
-        <a className="brand" href="/" aria-label="Forest Monitor home">
+        <a className="brand" href="/" aria-label="ForestLens home">
           <span className="brand-icon">
             <Leaf size={21} />
           </span>
-          Forest<span className="brand-light">Monitor</span>
+          ForestLens
         </a>
         <div className="header-right">
           <a
@@ -128,14 +128,14 @@ export default function App() {
       <main>
         <div className="page-heading">
           <div>
-            <h1>Forest Monitor</h1>
+            <h1>ForestLens</h1>
             <p>Visualize deforestation in the Brazilian Amazon</p>
           </div>
           <div className="location">
             <MapPin size={17} />
             <div>
               <strong>Porto Velho, Brazil</strong>
-              <span>Rondônia · Brazilian Amazon</span>
+              {/* <span>Rondônia · Brazilian Amazon</span> */}
             </div>
           </div>
         </div>
@@ -168,13 +168,6 @@ export default function App() {
                   <strong>
                     {format(group.hectares)} <small>ha</small>
                   </strong>
-                  <div className="comparison-bar">
-                    <i
-                      style={{
-                        width: `${(group.hectares / Math.max(...groups.map((g) => g.hectares), 1)) * 100}%`,
-                      }}
-                    />
-                  </div>
                   <span className="comparison-count">
                     {group.features.length} patches
                     <ChevronRight size={14} />
@@ -194,7 +187,6 @@ export default function App() {
               <strong>
                 {loading ? "—" : format(total)} <small>ha</small>
               </strong>
-              <span className="stat-foot">In the selected comparison</span>
             </div>
           </div>
           <div className="stat">
@@ -207,12 +199,6 @@ export default function App() {
                 {loading ? "—" : all.length}
                 <small> patches</small>
               </strong>
-              <span className="stat-foot">
-                {format(
-                  visible.reduce((s, f) => s + f.properties.area_hectares, 0),
-                )}{" "}
-                ha in current view
-              </span>
             </div>
           </div>
         </section>
@@ -256,7 +242,7 @@ export default function App() {
               </label>
             </div>
             <div className="list-caption">
-              {visible.length} OF {all.length} PATCHES <span>AREA (HA)</span>
+              PATCH <span>AREA (HA)</span>
             </div>
             <div className="patch-list">
               {loading ? (
@@ -276,7 +262,6 @@ export default function App() {
                         Patch{" "}
                         {String(f.properties.patch_number).padStart(2, "0")}
                       </strong>
-                      <span>Candidate tree loss</span>
                     </span>
                     <span className="patch-area">
                       {format(f.properties.area_hectares)}
@@ -374,39 +359,10 @@ export default function App() {
                   {String(selected.properties.patch_number).padStart(2, "0")}
                   <ArrowUpRight size={20} />
                 </h2>
-                <span className="status">Candidate tree loss</span>
                 <div className="detail-area">
                   {format(selected.properties.area_hectares)}{" "}
                   <span>hectares</span>
                 </div>
-                <dl>
-                  <div>
-                    <dt>Baseline</dt>
-                    <dd>{dateLabel(selected.properties.baseline_period)}</dd>
-                  </div>
-                  <div>
-                    <dt>Compared with</dt>
-                    <dd>{dateLabel(selected.properties.comparison_period)}</dd>
-                  </div>
-                  {selected.properties.baseline_scene_count != null && (
-                    <div>
-                      <dt>Baseline scenes</dt>
-                      <dd>{selected.properties.baseline_scene_count}</dd>
-                    </div>
-                  )}
-                  {selected.properties.comparison_scene_count != null && (
-                    <div>
-                      <dt>Comparison scenes</dt>
-                      <dd>{selected.properties.comparison_scene_count}</dd>
-                    </div>
-                  )}
-                  {selected.properties.count != null && (
-                    <div>
-                      <dt>Exported pixels</dt>
-                      <dd>{selected.properties.count}</dd>
-                    </div>
-                  )}
-                </dl>
                 {imagery?.[selected.properties.baseline_period] &&
                 imagery?.[selected.properties.comparison_period] ? (
                   <button

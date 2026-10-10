@@ -1,4 +1,4 @@
-# Forest Monitor
+# ForestLens
 
 A React and MapLibre app for exploring deforestation near Porto Velho, Brazil, in the Amazon Rainforest. Made by Samir Rangwalla, Gary Goodson, Jaideep Mandava, Dravya Pandya.
 

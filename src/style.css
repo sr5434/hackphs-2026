@@ -79,8 +79,8 @@ header {
   font-weight: 600;
 }
 .brand-icon {
-  background: var(--blue-soft);
-  color: var(--blue);
+  background: #ecfdf5;
+  color: #16a34a;
   width: 36px;
   height: 36px;
   border-radius: 8px;
@@ -213,22 +213,6 @@ select {
   font-weight: 400;
   font-size: 14px;
   color: var(--subtle);
-}
-.comparison-bar {
-  height: 4px;
-  background: var(--border);
-  border-radius: 4px;
-  overflow: hidden;
-  margin-bottom: 12px;
-}
-.comparison-bar i {
-  height: 100%;
-  display: block;
-  background: #a1a1aa;
-  border-radius: 4px;
-}
-.comparison-card.selected .comparison-bar i {
-  background: #3b82f6;
 }
 .comparison-count {
   display: flex;
@@ -596,6 +580,7 @@ select {
   color: var(--orange-text);
 }
 .detail-area {
+  margin-bottom: 24px;
   font-size: 32px;
   font-weight: 600;
   letter-spacing: -1px;
@@ -789,6 +774,10 @@ dd {
   margin-bottom: 10px;
 }
 @media (prefers-color-scheme: dark) {
+  .brand-icon {
+    background: #052e16;
+    color: #4ade80;
+  }
   :root {
     --background: #0a0a0a;
     --surface: #18181b;
