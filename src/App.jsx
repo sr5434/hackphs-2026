@@ -369,11 +369,11 @@ export default function App() {
                 </button>
               </div>
               <button
-                className={`legend ${showPatches ? "" : "muted"}`}
+                className={`legend`}
                 aria-pressed={showPatches}
                 onClick={() => setShowPatches((x) => !x)}
               >
-                <span /> {showPatches ? "Show patches" : "Hide patches"}
+                <span /> {showPatches ? "Hide patches" : "Show patches"}
               </button>
             </div>
             {selected && (
