@@ -20,3 +20,8 @@ The dataset compares July and August 2025 against 2024, and July and August 2026
 To regenerate the browser images, install Rasterio into `.tools/python` and run `scripts/prepare_imagery.py` with the path to the Earth Engine export ZIP. This produces original PNGs, full-resolution WebP browser images, and a geographic manifest in `public/imagery` without changing the original exports. WebP uses high-quality RGB compression (quality 92), retains the transparency mask and geographic bounds, and avoids reducing spatial resolution. Both the viewer and report exports use these smaller images. To optimize an existing PNG dataset with Pillow installed, run `python scripts/optimize_imagery.py`.
 
 This project used the Dynamic World dataset, so we'd like to thank Google, National Geographic Society, World Resources Institute and Copernicus Sentinel data. Basemap attribution appears on the map.
+
+## Manual Validation
+We looked at the before and after for the largest 5 patches per time period to visually verify that land went from forrested to barren. We also counted instances where there was some vegetation left, but significantly less compared to both surrounding areas and the original image. To confirm that it also worked for smaller patches, we randomly selected 5 patches with an area of roughly 1 hectare for verification.
+
+The model went 20/20 on large patches and 17/20 on small patches, for an unweighted average accuracy of 92.5%
