@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import maplibregl from "maplibre-gl";
 import { X } from "lucide-react";
 import { bounds, dateLabel } from "../lib/forest";
+import PatchReview from "./patch-review";
 
-export default function PatchComparison({ feature, imagery, onClose }) {
+export default function PatchComparison({ feature, imagery, onClose, review, onReview, storageError }) {
   const beforeContainer = useRef(null);
   const afterContainer = useRef(null);
   const [error, setError] = useState("");
@@ -110,7 +111,7 @@ export default function PatchComparison({ feature, imagery, onClose }) {
           if (event.key !== "Tab") return;
           const focusable = [
             ...event.currentTarget.querySelectorAll(
-              'button, [tabindex="0"], a[href]',
+              'button:not(:disabled), select, textarea, [tabindex="0"], a[href]',
             ),
           ];
           const first = focusable[0],
@@ -175,6 +176,8 @@ export default function PatchComparison({ feature, imagery, onClose }) {
           Orange outlines the detected patch.{/* Orange outlines the detected patch. Sentinel-2 | 10 m monthly
           composites. Gray areas have no valid imagery. */}
         </p>
+        <PatchReview feature={feature} imagery={imagery} review={review}
+          onReview={onReview} storageError={storageError} />
       </section>
     </div>
   );

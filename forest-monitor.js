@@ -1,6 +1,6 @@
 // SETTINGS — edit these.
-var comparisonYears = [2024, 2025];
-var months = [7, 9]; // July, September
+var comparisonYears = [2025, 2026];
+var months = [7, 8]; // July, August
 
 var detectionRadiusKm = 20; // Previously 5 km; change this to adjust coverage.
 var area = ee.Geometry.Point([-63.9, -8.8])
@@ -134,9 +134,9 @@ var imageryCRS = 'EPSG:32720'; // Porto Velho, Brazil
 var imageryGrid = [10, 0, 0, 0, -10, 10000000];
 
 var imageryMonths = [
-  '2023-07', '2023-09',
-  '2024-07', '2024-09',
-  '2025-07'
+  '2024-07', '2024-08',
+  '2025-07', '2025-08',
+  '2026-07', '2026-08'
 ];
 
 // Mask cloud shadows, clouds, cirrus, snow and invalid pixels.

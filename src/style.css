@@ -910,3 +910,41 @@ dd {
     max-width: 165px;
   }
 }
+
+.review-workflow {
+  margin: 0 0 20px;
+  padding: 16px 20px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 3px;
+  font-size: 14px;
+}
+.review-workflow p { margin: 6px 0; color: var(--muted); line-height: 1.5; }
+.review-workflow > span { color: var(--subtle); font-size: 12px; }
+.review-transfer { margin-top: 14px; }
+.review-transfer-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.review-transfer-actions button { display: inline-flex; align-items: center; gap: 8px; padding: 9px 12px; background: var(--field); border: 1px solid var(--border); border-radius: 3px; font-size: 12px; }
+.review-transfer p { font-size: 12px; }
+.review-filter { display: block; padding: 0 20px 16px; color: var(--muted); font-size: 12px; }
+.review-filter select { display: block; width: 100%; margin-top: 8px; padding: 9px 6px; }
+.patch-review { margin-top: 18px; border-top: 1px solid var(--border); padding-top: 16px; }
+.patch-review label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 6px; }
+.patch-review select, .patch-review textarea {
+  width: 100%; display: block; font: inherit; font-size: 13px; color: var(--foreground);
+  background: var(--field); border: 1px solid var(--border); border-radius: 3px;
+  padding: 9px; margin-bottom: 12px;
+}
+.patch-review textarea { resize: vertical; min-height: 64px; }
+.patch-review textarea:focus-visible { outline: 3px solid #93c5fd; outline-offset: 3px; }
+.review-help, .review-save { font-size: 11px; line-height: 1.5; color: var(--muted); margin: 8px 0; }
+.review-save { color: var(--accent-text); }
+.export-report {
+  display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+  padding: 10px; font-size: 13px; border: 1px solid var(--border); border-radius: 3px;
+  background: var(--accent-soft); color: var(--accent-text);
+}
+.image-comparison > .patch-review { max-width: 600px; }
+.details { width: 310px; }
+@media (max-width: 700px) {
+  .details { width: min(310px, calc(100% - 24px)); top: 58px; max-height: calc(100% - 145px); padding: 16px; }
+}

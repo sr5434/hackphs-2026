@@ -12,6 +12,9 @@ import {
 } from "lucide-react";
 import ForestMap from "./components/forest-map";
 import PatchComparison from "./components/patch-comparison";
+import PatchReview from "./components/patch-review";
+import ReviewTransfer from "./components/review-transfer";
+import { loadReviews, mergeReviews, reviewKey, reviewStatuses, reviewStorageKey } from "./lib/reviews";
 import {
   empty,
   format,
@@ -34,6 +37,24 @@ export default function App() {
   const [satellite, setSatellite] = useState(true);
   const [showPatches, setShowPatches] = useState(true);
   const [fitSignal, setFitSignal] = useState(0);
+  const [reviews, setReviews] = useState(loadReviews);
+  const [storageError, setStorageError] = useState("");
+  const [reviewFilter, setReviewFilter] = useState("all");
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(reviewStorageKey, JSON.stringify(reviews));
+      setStorageError("");
+    } catch {
+      setStorageError("Browser storage unavailable. Export your review to keep a copy.");
+    }
+  }, [reviews]);
+
+  function updateReview(feature, value) {
+    setReviews((current) => ({ ...current, [reviewKey(feature)]: {
+      ...value, updatedAt: new Date().toISOString(),
+    } }));
+  }
 
   useEffect(() => {
     let active = true;
@@ -82,6 +103,7 @@ export default function App() {
     .filter(
       (f) =>
         f.properties.area_hectares >= Number(minimum) &&
+        (reviewFilter === "all" || (reviews[reviewKey(f)]?.status || "unreviewed") === reviewFilter) &&
         `patch ${String(f.properties.patch_number).padStart(2, "0")}`.includes(
           query.toLowerCase(),
         ),
@@ -96,6 +118,7 @@ export default function App() {
     setPeriod(key);
     setSelected(null);
     setQuery("");
+    setReviewFilter("all");
     setFitSignal((x) => x + 1);
   }
   function changeMinimum(value) {
@@ -195,6 +218,13 @@ export default function App() {
             </div>
           </div>
         </section>
+        <div className="review-workflow">
+          <strong>Manually inspect detected loss</strong>
+          <p>Pick a patch, add your own thoughts, and export your assessment to share with others.</p>
+          <span>{all.filter((f) => reviews[reviewKey(f)]?.status && reviews[reviewKey(f)].status !== "unreviewed").length} of {all.length} assessed in this comparison</span>
+          <ReviewTransfer reviews={reviews} onImport={(incoming) => setReviews((current) => mergeReviews(current, incoming))} />
+          {storageError && <p role="alert">{storageError}</p>}
+        </div>
         <section className="explorer" aria-label="Forest loss explorer">
           <aside className="sidebar">
             <div className="sidebar-title">
@@ -234,6 +264,17 @@ export default function App() {
                 </select>
               </label>
             </div>
+            <label className="review-filter">
+              Review status
+              <select value={reviewFilter} onChange={(event) => {
+                setReviewFilter(event.target.value);
+                setSelected(null);
+              }}>
+                <option value="all">All statuses</option>
+                {Object.entries(reviewStatuses).map(([value, label]) =>
+                  <option key={value} value={value}>{label}</option>)}
+              </select>
+            </label>
             <div className="list-caption">
               PATCH <span>AREA (HA)</span>
             </div>
@@ -252,6 +293,7 @@ export default function App() {
                         Patch{" "}
                         {String(f.properties.patch_number).padStart(2, "0")}
                       </strong>
+                      <span>{reviewStatuses[reviews[reviewKey(f)]?.status || "unreviewed"]}</span>
                     </span>
                     <span className="patch-area">
                       {format(f.properties.area_hectares)}
@@ -269,7 +311,7 @@ export default function App() {
                   </strong>
                   <p>
                     {all.length
-                      ? "Try a smaller minimum area or clear your search."
+                      ? "Try a smaller minimum area, another review status, or clear your search."
                       : "No detections are available for this comparison."}
                   </p>
                   {all.length > 0 && (
@@ -277,6 +319,7 @@ export default function App() {
                       onClick={() => {
                         setMinimum("0");
                         setQuery("");
+                        setReviewFilter("all");
                       }}
                     >
                       Reset filters
@@ -366,6 +409,8 @@ export default function App() {
                     <p>Images for this comparison are unavailable.</p>
                   </div>
                 )}
+                <PatchReview key={reviewKey(selected)} feature={selected} imagery={imagery}
+                  review={reviews[reviewKey(selected)]} onReview={updateReview} storageError={storageError} />
               </div>
             )}
           </div>
@@ -375,6 +420,9 @@ export default function App() {
         <PatchComparison
           feature={comparisonFeature}
           imagery={imagery}
+          review={reviews[reviewKey(comparisonFeature)]}
+          onReview={updateReview}
+          storageError={storageError}
           onClose={() => setComparisonFeature(null)}
         />
       )}
