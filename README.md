@@ -17,6 +17,6 @@ Select a candidate patch, open **View before & after**, and record a review stat
 
 The dataset compares July and August 2025 against 2024, and July and August 2026 against 2025. Six monthly RGB images for those comparisons are bundled with the site. External basemap tiles require network access. The before/after viewer uses the exported Sentinel-2 monthly RGB composites for the selected dates.
 
-To regenerate the browser images, install Rasterio into `.tools/python` and run `scripts/prepare_imagery.py` with the path to the Earth Engine export ZIP. This produces PNGs and a geographic manifest in `public/imagery` without changing the original exports.
+To regenerate the browser images, install Rasterio into `.tools/python` and run `scripts/prepare_imagery.py` with the path to the Earth Engine export ZIP. This produces original PNGs, full-resolution WebP browser images, and a geographic manifest in `public/imagery` without changing the original exports. WebP uses high-quality RGB compression (quality 92), retains the transparency mask and geographic bounds, and avoids reducing spatial resolution. Both the viewer and report exports use these smaller images. To optimize an existing PNG dataset with Pillow installed, run `python scripts/optimize_imagery.py`.
 
 This project used the Dynamic World dataset, so we'd like to thank Google, National Geographic Society, World Resources Institute and Copernicus Sentinel data. Basemap attribution appears on the map.

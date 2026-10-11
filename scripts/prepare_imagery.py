@@ -10,6 +10,7 @@ import numpy as np
 import rasterio
 from rasterio.warp import calculate_default_transform, reproject, Resampling, transform_bounds
 from PIL import Image
+from optimize_imagery import save_browser_image
 
 root = Path(__file__).resolve().parents[1]
 output = root / 'public/imagery'
@@ -36,9 +37,11 @@ def convert(source, filename):
     mask = np.zeros((height, width), dtype=np.uint8)
     reproject(source=source.dataset_mask(), destination=mask, src_transform=source.transform, src_crs=source.crs, dst_transform=projection, dst_crs='EPSG:3857', resampling=Resampling.nearest)
     image = np.dstack([rgb.transpose(1, 2, 0), mask])
-    Image.fromarray(image).save(output / f'{period}.png', optimize=True)
+    browser_image = Image.fromarray(image)
+    browser_image.save(output / f'{period}.png', optimize=True)
+    browser_url = save_browser_image(browser_image, output, period)
     west, south, east, north = transform_bounds('EPSG:3857', 'EPSG:4326', projection.c, projection.f + projection.e * height, projection.c + projection.a * width, projection.f)
-    manifest[period] = {'url': f'/imagery/{period}.png', 'coordinates': [[west, north], [east, north], [east, south], [west, south]], 'width': width, 'height': height, 'validPercent': round(float(np.count_nonzero(mask)) / mask.size * 100, 1)}
+    manifest[period] = {'url': browser_url, 'coordinates': [[west, north], [east, north], [east, south], [west, south]], 'width': width, 'height': height, 'validPercent': round(float(np.count_nonzero(mask)) / mask.size * 100, 1)}
     print(period, source.crs, source.nodata, width, height, manifest[period]['validPercent'], flush=True)
 
 
