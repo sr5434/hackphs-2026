@@ -41,7 +41,7 @@ export default function ReviewTransfer({ reviews, onImport }) {
         <button disabled={importing} onClick={() => input.current?.click()}><Upload size={15} /> {importing ? "Importing…" : "Import reviews"}</button>
         <input ref={input} type="file" accept=".json,application/json" aria-label="Reviews backup file" hidden onChange={importReviews} />
       </div>
-      <p>Transfer notes and statuses between browsers using a JSON backup. Patches must match the same dataset.</p>
+      <p>Transfer notes and statuses between browsers using a JSON backup.</p>
       {message && <p role="status">{message}</p>}
     </div>
   );
