@@ -67,16 +67,16 @@ export async function exportPatchReport(feature, imagery, review) {
   const patch = String(properties.patch_number).padStart(2, "0");
   const status = reviewStatuses[review?.status] || reviewStatuses.unreviewed;
   const timestamp = new Date().toISOString();
-  const figure = (result, index) => `<figure><figcaption>${index ? "After" : "Before"} · ${escapeHTML(dates[index])}</figcaption>${result.status === "fulfilled" && result.value
+  const figure = (result, index) => `<figure><figcaption>${index ? "After" : "Before"} ${escapeHTML(dates[index])}</figcaption>${result.status === "fulfilled" && result.value
     ? `<img src="${result.value}" alt="${index ? "After" : "Before"} satellite composite with orange candidate patch outline">`
     : '<div class="unavailable">Imagery unavailable for this location or date.</div>'}</figure>`;
   const html = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ForestLens · Patch ${escapeHTML(patch)} review</title>
+<title>ForestLens Patch ${escapeHTML(patch)} review</title>
 <style>
 body{font:15px/1.6 system-ui,sans-serif;color:#172321;max-width:1050px;margin:40px auto;padding:0 24px}h1{margin-bottom:4px}h2{font-size:18px;margin:24px 0 8px}.subtle{color:#52635c}dl{display:grid;grid-template-columns:190px 1fr;gap:8px 16px}dt{color:#52635c}dd{margin:0;overflow-wrap:anywhere}.evidence{display:grid;grid-template-columns:1fr 1fr;gap:20px}figure{margin:0}figcaption{font-weight:600;margin-bottom:8px}img{width:100%;border-radius:4px}.unavailable{background:#e5e7eb;padding:70px 20px}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:11px}.notes{white-space:pre-wrap;overflow-wrap:anywhere;background:#f4f7f5;padding:16px;border-radius:4px}.print-help{background:#f4f7f5;padding:12px}@media(max-width:650px){.evidence{grid-template-columns:1fr}dl{grid-template-columns:1fr}}@media print{body{margin:0;padding:0;font-size:11px}.print-help,details{display:none}.evidence,dl{break-inside:avoid}h2{break-after:avoid}img{max-height:280px;object-fit:contain}@page{margin:15mm}}
 </style></head><body>
-<h1>ForestLens · Patch ${escapeHTML(patch)}</h1><p class="subtle">Detected deforestation review · Porto Velho, Brazil</p>
+<h1>ForestLens Patch ${escapeHTML(patch)}</h1><p class="subtle">Detected deforestation review Porto Velho, Brazil</p>
 <dl><dt>Review status</dt><dd>${escapeHTML(status)}</dd>
 <dt>Comparison</dt><dd>${escapeHTML(dates[0])} → ${escapeHTML(dates[1])}</dd>
 <dt>Candidate area</dt><dd>${escapeHTML(properties.area_hectares.toLocaleString("en-US", {maximumFractionDigits: 4}))} hectares</dd>

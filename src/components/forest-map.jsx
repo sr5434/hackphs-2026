@@ -24,6 +24,7 @@ export default function ForestMap({
         style: basemap(satellite),
         center: [-63.9, -8.8],
         zoom: 12,
+        maxZoom: 17,
         attributionControl: true,
       });
       instance.current = map;

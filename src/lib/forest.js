@@ -130,7 +130,9 @@ function basemap(satellite) {
         tileSize: 256,
         attribution:
           "Imagery © Esri, Maxar, Earthstar Geographics | Map © OpenStreetMap contributors © CARTO",
-        maxzoom: 19,
+        // 256px tiles can request one level above the map's zoom.
+        // Reuse level 17 imagery instead of requesting unavailable level 18 tiles.
+        maxzoom: 17,
       },
     },
     layers: [{ id: "base", type: "raster", source: "base" }],
