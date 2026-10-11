@@ -32,7 +32,11 @@ function comparisonGroups(features) {
     group.hectares += feature.properties.area_hectares;
   });
   return [...groups.values()]
-    .filter((group) => group.key !== "2023-09|2024-09")
+    .filter((group) =>
+      [group.baseline, group.comparison].every((period) =>
+        /^\d{4}-(07|08)$/.test(period || ""),
+      ),
+    )
     .sort(
       (a, b) =>
         (a.comparison || "").localeCompare(b.comparison || "") ||
